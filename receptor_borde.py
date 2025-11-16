@@ -10,6 +10,7 @@ BAUD_RATE = 19200              # Debe coincidir con tu HC-12 (9600 es el default
 MQTT_BROKER = 'localhost'     # O 'mosquitto' si usas el nombre del servicio Docker
 MQTT_PORT = 1883
 MQTT_TOPIC = 'sensor/pir'     # Tema MQTT para tu sensor HC-SR501
+MQTT_TOPIC_AN = 'sensor/MQ'     # Tema MQTT para tu sensor MQ-135
 
 MQTT_USER = 'juan'
 MQTT_PSSW = 'cont123'
@@ -86,7 +87,12 @@ def main():
                         tecla = chr(int(dato[1:]))
                         print(f"Dato de teclado recibido por RF: {tecla}")
                         ingreso_tecla(tecla, mqtt_client)
-                        # Publicar en Mosquitto (Paso 5) (Solo poner "Resultados")")
+
+                    elif dato[0] == "A":
+                        valor = int(dato[1:])
+                        print(f"Dato de sensor calidad aure por RF: {valor}")
+                        mqtt_client.publish(MQTT_TOPIC_AN, valor)
+
                     elif dato: # Imprimir si es otro dato (para depuración)
                         print(f"Dato no reconocido recibido: {dato}")
 

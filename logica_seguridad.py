@@ -39,24 +39,24 @@ def ingreso_tecla(tecla, mqtt_client):
                 print("Desactivar alarma")
                 Estado = 1
                 cantErrores = 0
-                mqtt_client.publish(MQTT_TOPIC, mensajes[0])
+                mqtt_client.publish(MQTT_TOPIC, KeyCode+mensajes[0])
             else:
                 cantErrores+=1
                 print(f"Clave ingresada erronea, cant errores: {cantErrores}")
-                mqtt_client.publish(MQTT_TOPIC, mensajes[1])
+                mqtt_client.publish(MQTT_TOPIC, KeyCode+mensajes[1])
         elif(Estado == 1):    #1-Apagado
             if (KeyCode == claves["ACTIVATE"]):
                 print("Prendiendo Alarma") #Deberia haber un timer para salir
                 Estado = 0
                 tiempo_inicio = time.time()
                 tiempo_transcurrido = 0
-                mqtt_client.publish(MQTT_TOPIC, mensajes[2])
+                mqtt_client.publish(MQTT_TOPIC, KeyCode+mensajes[2])
             else:
                 print(f"Comando desconocido")
         elif(Estado == 2):    #2-Alarma
             if (KeyCode == claves["PASSWORD"]):
                 print("Desactivando alarma")
-                mqtt_client.publish(MQTT_TOPIC, mensajes[0])
+                mqtt_client.publish(MQTT_TOPIC, KeyCode+mensajes[0])
                 Estado = 1
                 cantErrores = 0
             else:
