@@ -10,9 +10,17 @@ claves = {
     "ACTIVATE":"A12#"
 }
 
+mensajes = {
+    0: f",0,Alarma Desactivada",
+    1: f",1,Contraseña Errónea",
+    2: f",2,Alarma Activada",
+    3: f",3,Exceso de contraseñas incorrectas",
+    4: f",4,🔔 Alerta 🔔",
+    5: f",5,Movimiento Detectado"
+}
+
 cantErrores = 0
 alarma_enviada = 0
-KeyCode = ""
 
 cant_max_errores = 3
 tiempo_max = 5  #Segundos de espera
@@ -31,24 +39,24 @@ def ingreso_tecla(tecla, mqtt_client):
                 print("Desactivar alarma")
                 Estado = 1
                 cantErrores = 0
-                mqtt_client.publish(MQTT_TOPIC, "Alarma Desactivada")
+                mqtt_client.publish(MQTT_TOPIC, mensajes[0])
             else:
                 cantErrores+=1
                 print(f"Clave ingresada erronea, cant errores: {cantErrores}")
-                mqtt_client.publish(MQTT_TOPIC, f"Contraseña Erronea {KeyCode}")
+                mqtt_client.publish(MQTT_TOPIC, mensajes[1])
         elif(Estado == 1):    #1-Apagado
             if (KeyCode == claves["ACTIVATE"]):
                 print("Prendiendo Alarma") #Deberia haber un timer para salir
                 Estado = 0
                 tiempo_inicio = time.time()
                 tiempo_transcurrido = 0
-                mqtt_client.publish(MQTT_TOPIC, "Alarma Encendida")
+                mqtt_client.publish(MQTT_TOPIC, mensajes[2])
             else:
                 print(f"Comando desconocido")
         elif(Estado == 2):    #2-Alarma
             if (KeyCode == claves["PASSWORD"]):
                 print("Desactivando alarma")
-                mqtt_client.publish(MQTT_TOPIC, "Alarma Desactivada")
+                mqtt_client.publish(MQTT_TOPIC, mensajes[0])
                 Estado = 1
                 cantErrores = 0
             else:
@@ -57,7 +65,7 @@ def ingreso_tecla(tecla, mqtt_client):
         if(cantErrores >= cant_max_errores):
             Estado=2
             alarma_enviada = 0
-            mqtt_client.publish(MQTT_TOPIC, "Exceso de pass inc")
+            mqtt_client.publish(MQTT_TOPIC, mensajes[3])
             #tiempo_inicio = time.time()  #Inicia temporizador de tolerancia para ingresar contraseña
             #tiempo_transcurrido = 0
 
@@ -77,7 +85,7 @@ def logica_seguridad(ser, mqtt_client):
     else:
         if (Estado == 2 and alarma_enviada == 0):
             print("Alarma encendida Wee dooh 🔔")
-            mqtt_client.publish(MQTT_TOPIC, "Alerta")
+            mqtt_client.publish(MQTT_TOPIC, mensajes[4])
             ser.write(b'1\n')
             alarma_enviada = 1
 
@@ -88,7 +96,7 @@ def movimiento_detectado(mqtt_client):
     #print(f"Detecto algo, el estado es:{Estado}, y el tiempo transcurrido es {tiempo_transcurrido}")
     if(Estado == 0 and tiempo_transcurrido>=tiempo_max): #Si terminó el tiempo de tolerancia y detecta un movimiento
         #print("Detecto tiempo fuera de :(")
-        mqtt_client.publish(MQTT_TOPIC, "MovDetectado")
+        mqtt_client.publish(MQTT_TOPIC, mensajes[5])
         Estado = 2 #Pasar a estado alarma
         tiempo_inicio = time.time()  #Inicia temporizador de tolerancia para ingresar contraseña
         tiempo_transcurrido = 0
