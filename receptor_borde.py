@@ -90,7 +90,7 @@ def main():
 
                     elif dato[0] == "A":
                         valor = int(dato[1:])
-                        print(f"Dato de sensor calidad aure por RF: {valor}")
+                        print(f"Dato de sensor calidad aire por RF: {valor}")
                         mqtt_client.publish(MQTT_TOPIC_AN, valor)
 
                     elif dato: # Imprimir si es otro dato (para depuración)

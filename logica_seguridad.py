@@ -1,6 +1,7 @@
 import time
 import serial
 import paho.mqtt.client as mqtt
+from datetime import datetime 
 
 MQTT_TOPIC = 'seguridad'     # Tema MQTT
 
@@ -19,6 +20,7 @@ mensajes = {
     5: f",5,Movimiento Detectado"
 }
 
+KeyCode = ""
 cantErrores = 0
 alarma_enviada = 0
 
@@ -51,6 +53,7 @@ def ingreso_tecla(tecla, mqtt_client):
                 tiempo_inicio = time.time()
                 tiempo_transcurrido = 0
                 mqtt_client.publish(MQTT_TOPIC, KeyCode+mensajes[2])
+                #print(datetime.now().timestamp())
             else:
                 print(f"Comando desconocido")
         elif(Estado == 2):    #2-Alarma
