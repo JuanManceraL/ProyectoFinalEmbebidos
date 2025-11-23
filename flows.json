@@ -1,0 +1,705 @@
+[
+    {
+        "id": "d72f8b023a4e7dd0",
+        "type": "tab",
+        "label": "Proyecto",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e149a22aa91b5ee3",
+        "type": "mqtt in",
+        "z": "d72f8b023a4e7dd0",
+        "name": "",
+        "topic": "seguridad",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "5c93ba39582ecc68",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 80,
+        "wires": [
+            [
+                "a14b8d480db5eb96",
+                "72598294bae107bc"
+            ]
+        ]
+    },
+    {
+        "id": "a33205a698ccf66d",
+        "type": "mqtt in",
+        "z": "d72f8b023a4e7dd0",
+        "name": "",
+        "topic": "sensor/MQ",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "5c93ba39582ecc68",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 200,
+        "wires": [
+            [
+                "ea98797399412d45",
+                "aa662ebcf3f37c5d",
+                "4dff9e36e16ab4d7"
+            ]
+        ]
+    },
+    {
+        "id": "a6bac3d36b69b57e",
+        "type": "mqtt in",
+        "z": "d72f8b023a4e7dd0",
+        "name": "",
+        "topic": "sensor/pir",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "5c93ba39582ecc68",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 360,
+        "wires": [
+            [
+                "806c35272302d8b8",
+                "1bd36c24a1e9677b"
+            ]
+        ]
+    },
+    {
+        "id": "a14b8d480db5eb96",
+        "type": "debug",
+        "z": "d72f8b023a4e7dd0",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "ea98797399412d45",
+        "type": "debug",
+        "z": "d72f8b023a4e7dd0",
+        "name": "debug 20",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "806c35272302d8b8",
+        "type": "debug",
+        "z": "d72f8b023a4e7dd0",
+        "name": "debug 21",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "aa662ebcf3f37c5d",
+        "type": "influxdb out",
+        "z": "d72f8b023a4e7dd0",
+        "influxdb": "4d93223f753b7de6",
+        "name": "",
+        "measurement": "CalidadAire",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "UNAM",
+        "bucket": "nodered_db",
+        "x": 560,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "1bd36c24a1e9677b",
+        "type": "influxdb out",
+        "z": "d72f8b023a4e7dd0",
+        "influxdb": "4d93223f753b7de6",
+        "name": "",
+        "measurement": "Pir",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "UNAM",
+        "bucket": "nodered_db",
+        "x": 530,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "6f882c14f04f2444",
+        "type": "function",
+        "z": "d72f8b023a4e7dd0",
+        "name": "function 11",
+        "func": "msg.payload = typeof msg.payload[1];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 170,
+        "y": 500,
+        "wires": [
+            [
+                "ee7baa77ef3ac776"
+            ]
+        ]
+    },
+    {
+        "id": "ee7baa77ef3ac776",
+        "type": "debug",
+        "z": "d72f8b023a4e7dd0",
+        "name": "debug 22",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 380,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "72598294bae107bc",
+        "type": "function",
+        "z": "d72f8b023a4e7dd0",
+        "name": "function 12",
+        "func": "let data = msg.payload;\nmsg.payload = data.split(\",\", 3);\n\n//msg.topic = \"INSERT INTO Sensor (timestamp, temp) VALUES (\" + time + \", \" + temp + \")\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 120,
+        "wires": [
+            [
+                "11a11831f8a906c3",
+                "2167b143f88a4821"
+            ]
+        ]
+    },
+    {
+        "id": "11a11831f8a906c3",
+        "type": "debug",
+        "z": "d72f8b023a4e7dd0",
+        "name": "debug 23",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "2167b143f88a4821",
+        "type": "function",
+        "z": "d72f8b023a4e7dd0",
+        "name": "function 13",
+        "func": "let tipo_int = parseInt(msg.payload[1]);\nlet tipo_txt = msg.payload[2];\nlet key_code = msg.payload[0];\n\n//tipo_int = 2;\n//tipo_txt = \"Prueba\";\n//key_code = \"A12#\";\nlet times_s = Date.now();\nmsg.topic = \"INSERT INTO Accesos (timestamp, mensaje_int, mensaje_txt, KeyCode) VALUES (\" + times_s + \", \" + tipo_int + \", '\" + tipo_txt + \"', '\" + key_code + \"')\";\n\n/*\nif (tipo_int == 4)\n{\n    //msg.payload = \"Alerta\";\n    msg.topic = \"INSERT INTO Accesos (timestamp, mensaje_int, mensaje_txt, KeyCode) VALUES (\" + times_s + \", \" + tipo_int + \", '\" + tipo_txt + \"', '\" + key_code + \"');INSERT INTO Alertas (timestamp) VALUES (\" + times_s + \")\";\n}\nelse if ((tipo_int < 4 && tipo_int >= 0)|| tipo_int==5)\n{\n    //msg.payload = \"No alerta\";\n}\nelse\n{\n    //msg.payload = \"Fallo\";\n    msg.topic = \"INSERT INTO Accesos (timestamp, mensaje_int, mensaje_txt, KeyCode) VALUES (\" + times_s + \", \" + tipo_int + \", '\" + tipo_txt + \"', '\" + key_code + \"')\";\n}*/\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 120,
+        "wires": [
+            [
+                "17a78e6cfffae8dd",
+                "0c78a59d3bbaab42"
+            ]
+        ]
+    },
+    {
+        "id": "17a78e6cfffae8dd",
+        "type": "debug",
+        "z": "d72f8b023a4e7dd0",
+        "name": "debug 24",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "0c78a59d3bbaab42",
+        "type": "mysql",
+        "z": "d72f8b023a4e7dd0",
+        "mydb": "d85bbe39b26c3eb5",
+        "name": "",
+        "x": 960,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "85e2c62d2af98e9c",
+        "type": "function",
+        "z": "d72f8b023a4e7dd0",
+        "name": "function 14",
+        "func": "msg.topic = \"SELECT * FROM Accesos ORDER BY id DESC\"\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 620,
+        "wires": [
+            [
+                "6fbc2e2882963286"
+            ]
+        ]
+    },
+    {
+        "id": "faa52942020c7cdb",
+        "type": "inject",
+        "z": "d72f8b023a4e7dd0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 620,
+        "wires": [
+            [
+                "85e2c62d2af98e9c"
+            ]
+        ]
+    },
+    {
+        "id": "6fbc2e2882963286",
+        "type": "mysql",
+        "z": "d72f8b023a4e7dd0",
+        "mydb": "d85bbe39b26c3eb5",
+        "name": "",
+        "x": 700,
+        "y": 620,
+        "wires": [
+            [
+                "76af02d3a31ddcc5"
+            ]
+        ]
+    },
+    {
+        "id": "76af02d3a31ddcc5",
+        "type": "debug",
+        "z": "d72f8b023a4e7dd0",
+        "name": "debug 25",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "4dff9e36e16ab4d7",
+        "type": "function",
+        "z": "d72f8b023a4e7dd0",
+        "name": "function 15",
+        "func": "let lectura = parseInt(msg.payload);\n\nlet times_s = Date.now();\n\nmsg.topic = \"INSERT INTO Sensor_Aire (timestamp, calidad) VALUES (\" + times_s + \", \" + lectura + \")\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 280,
+        "wires": [
+            [
+                "2ed2c3fec7ab0758",
+                "f9e03ece33cac366"
+            ]
+        ]
+    },
+    {
+        "id": "2ed2c3fec7ab0758",
+        "type": "debug",
+        "z": "d72f8b023a4e7dd0",
+        "name": "debug 26",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "f9e03ece33cac366",
+        "type": "mysql",
+        "z": "d72f8b023a4e7dd0",
+        "mydb": "d85bbe39b26c3eb5",
+        "name": "",
+        "x": 840,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5bdc848ecb9da37d",
+        "type": "function",
+        "z": "d72f8b023a4e7dd0",
+        "name": "function 17",
+        "func": "msg.topic = \"SELECT * FROM Sensor_Aire ORDER BY id DESC LIMIT 10\"\n//msg.topic = \"SELECT * FROM Sensor_Aire ORDER BY id DESC\"\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 820,
+        "wires": [
+            [
+                "d5014430e849792d"
+            ]
+        ]
+    },
+    {
+        "id": "5d4361aa06d993d6",
+        "type": "inject",
+        "z": "d72f8b023a4e7dd0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 820,
+        "wires": [
+            [
+                "5bdc848ecb9da37d"
+            ]
+        ]
+    },
+    {
+        "id": "d5014430e849792d",
+        "type": "mysql",
+        "z": "d72f8b023a4e7dd0",
+        "mydb": "d85bbe39b26c3eb5",
+        "name": "",
+        "x": 700,
+        "y": 820,
+        "wires": [
+            [
+                "86ecc8b9242451ce"
+            ]
+        ]
+    },
+    {
+        "id": "86ecc8b9242451ce",
+        "type": "debug",
+        "z": "d72f8b023a4e7dd0",
+        "name": "debug 28",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "34a591fb6ccec2d8",
+        "type": "function",
+        "z": "d72f8b023a4e7dd0",
+        "name": "function 18",
+        "func": "msg.topic = \"SELECT timestamp, mensaje_int FROM Accesos WHERE mensaje_int=4 ORDER BY id DESC\"\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 700,
+        "wires": [
+            [
+                "96cdec0ce2349798"
+            ]
+        ]
+    },
+    {
+        "id": "2a0baaa81981f7e8",
+        "type": "inject",
+        "z": "d72f8b023a4e7dd0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 700,
+        "wires": [
+            [
+                "34a591fb6ccec2d8"
+            ]
+        ]
+    },
+    {
+        "id": "96cdec0ce2349798",
+        "type": "mysql",
+        "z": "d72f8b023a4e7dd0",
+        "mydb": "d85bbe39b26c3eb5",
+        "name": "",
+        "x": 700,
+        "y": 700,
+        "wires": [
+            [
+                "ef9f060330a2eddc"
+            ]
+        ]
+    },
+    {
+        "id": "ef9f060330a2eddc",
+        "type": "debug",
+        "z": "d72f8b023a4e7dd0",
+        "name": "debug 29",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "8188dec1166b0638",
+        "type": "comment",
+        "z": "d72f8b023a4e7dd0",
+        "name": "Recepción de panel de seguridad",
+        "info": "Recibe por mosquitto (RBPI->) \nCódigo: logica_seguridad.py\nformato  = [keycode ingresado, codigo (formato numero), descripción del código]\nLa primer función divide los datos por las comas\nLa siguiente funcion asigna los datos a diferentes variables y genera la sentencia\n    sql para insertar en la tabla Accesos\nContinene la funcion desactivada de enviar otra sentencia adicional si se trata de \n    cierto tipo de mensaje",
+        "x": 230,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "5d720ce69f46ad41",
+        "type": "comment",
+        "z": "d72f8b023a4e7dd0",
+        "name": "Recepción Sensor Aire (MQ)",
+        "info": "Recibe por mosquitto (RBPI->) \nCódigo: receptor_borde.py\nformato  = valor numerico\nLa funcion convierte el dato a int, toma la fecha actual y envía la \n    sentencia sql a la tabla Sensor_Aire",
+        "x": 220,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "35b6deef73cf1fb7",
+        "type": "comment",
+        "z": "d72f8b023a4e7dd0",
+        "name": "Recepción Sensor Movimiento (PIR)",
+        "info": "Recibe por mosquitto (RBPI->) \nCódigo: receptor_borde.py\nformato  = valor numerico (0 o 1)\nEn este caso solo lo manda a InfluxDB",
+        "x": 240,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "c184051f8de90635",
+        "type": "comment",
+        "z": "d72f8b023a4e7dd0",
+        "name": "Función  tipo de dato",
+        "info": "Función que envía al debug el tipo de dato recibido\nÚtil para depurar los datos recibidos para enviarlos, sobre todo\npara las sentencias sql",
+        "x": 190,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "e8c259ea6cd57a06",
+        "type": "comment",
+        "z": "d72f8b023a4e7dd0",
+        "name": "Consulta SQL - Datos de Acceso",
+        "info": "",
+        "x": 230,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "1b86aa86e2ded88c",
+        "type": "comment",
+        "z": "d72f8b023a4e7dd0",
+        "name": "Consulta SQL - Datos de Alertas de seguridad (Filtro de Accesos)",
+        "info": "",
+        "x": 330,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "d60a6b1323332484",
+        "type": "comment",
+        "z": "d72f8b023a4e7dd0",
+        "name": "Consulta SQL - Datos de sensor MQ",
+        "info": "Trae los últimos 10 (también tiene función para traer todos)",
+        "x": 240,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "5c93ba39582ecc68",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "http://192.168.0.22",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "4d93223f753b7de6",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": 8086,
+        "protocol": "http",
+        "database": "database",
+        "name": "",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://192.168.0.7:8086",
+        "timeout": 10,
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "d85bbe39b26c3eb5",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "192.168.0.7",
+        "port": "3306",
+        "db": "ProyectoFinal",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "9d0ba16088110f59",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-influxdb": "0.7.0",
+            "node-red-node-mysql": "2.0.0"
+        }
+    }
+]
