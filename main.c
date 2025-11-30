@@ -101,7 +101,7 @@ void main(void) {
         // Intervalo de envío (Paso 5 del proyecto)
         // Ajusta este delay al "cierto intervalo de tiempo" que necesites
         // (Ejemplo: 1000ms = 1 segundo)
-        __delay_ms(100); //1000 
+        __delay_ms(30); //1000 
         //QUITAR ESTO PARA QUEE VAYA MÁS RÁPIDO
     }
 }
@@ -289,3 +289,4 @@ void USART_TxString(const char *str) {
         str++;
     }
 }
+
